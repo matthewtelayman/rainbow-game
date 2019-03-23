@@ -1,5 +1,43 @@
+body {
+    background-color: #74b9ff
+}
+
+#board-container {
+    background-color: white
+}
+
 .select-tile {
     -webkit-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
     -moz-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
     box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
+}
+
+/* chat styles */
+#chat-component {
+    overflow: hidden;
+    z-index: 0;
+    overflow-y: scroll;
+    font-size: 12px;
+    /*display: none; */
+}
+
+#message-input {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 3px
+}
+
+.messages {
+    padding: 5px;
+    margin: 0px;
+    font-size: 12px;
+}
+
+.messageBody {
+    padding: 5px;
+}
+
+#scoreboard-component {
+    background-color: ;
 }

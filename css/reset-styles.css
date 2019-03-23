@@ -3,6 +3,16 @@
     padding: 0;
 }
 
+.row {
+    margin: 0
+}
+
 .table {
     margin-bottom: 0px
+}
+
+.col-8,
+.col-4 {
+    margin: 0;
+    padding: 0
 }

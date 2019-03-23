@@ -18,7 +18,7 @@ for (let i = 0; i < 10; i++) {
     let tr = document.createElement('tr');
     for (let j = 0; j < 10; j++) {
         let td = document.createElement('td');
-        td.setAttribute("style", "padding-bottom:53px; border:2px solid black; ");
+        td.setAttribute("style", "padding-bottom:51px; border:2px solid #341f97; ");
         td.id = `tile-${counter}`;
         tr.appendChild(td);
         counter++;
