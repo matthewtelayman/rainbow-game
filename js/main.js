@@ -1,30 +1,42 @@
-function main() {
-    //Elements
-    const boardContainer = document.getElementById('board-container');
-    const tableBody = document.getElementById('table-body');
-    const tokenColors = [{
-        color: 'red',
-        hexValue: '#d63031'
-    },
-        {
-            color: 'blue',
-            hexValue: '#0984e3'
-        },
-        {
-            color: 'green',
-            hexValue: '#00b808'
-        },
-        {
-            color: 'yellow',
-            hexValue: '#f9ca24'
-        },
-        {
-            color: 'orange',
-            hexValue: '#f99a00'
-        }
-    ];
+const boardContainer = document.getElementById('board-container');
+const tableBody = document.getElementById('table-body');
+let selectedToken;
+let redTokens = 20;
+let greenTokens = 20;
+let blueTokens = 20;
+let orangeTokens = 20;
+let yellowTokens = 20;
 
-    //Create board
+const tokenColors = [{
+    color: 'red',
+    hexValue: '#d63031'
+},
+    {
+        color: 'blue',
+        hexValue: '#0984e3'
+    },
+    {
+        color: 'green',
+        hexValue: '#00b808'
+    },
+    {
+        color: 'yellow',
+        hexValue: '#f9ca24'
+    },
+    {
+        color: 'orange',
+        hexValue: '#f99a00'
+    }
+];
+
+function main() {
+    createBoard();
+    placeTokensOnBoard();
+    updateSelectedTokenOnTokenClick();
+    highlightSelectedBoardTileOnClick();
+}
+
+function createBoard() {
     let counter = 0;
     for (let i = 0; i < 10; i++) {
         let tr = document.createElement('tr');
@@ -37,6 +49,9 @@ function main() {
         }
         tableBody.appendChild(tr);
     }
+}
+
+function placeTokensOnBoard() {
 
     //Place tokens on board
     /*
@@ -47,10 +62,10 @@ function main() {
 
     let token;
     let tile;
-    counter = 0;
+    let counter = 0;
     for (let i = 0; i < 100; i++) {
 
-        if (isNotFourCenterTiles(i)){
+        if (isNotFourCenterTiles(i)) {
             tile = document.getElementById(`tile-${i}`);
             token = document.createElement('div');
             //randomize utility here
@@ -61,22 +76,16 @@ function main() {
         }
     }
 
-    //Add highlight action to board tiles
-    for (let i = 0; i < 100; i++) {
-        token = document.getElementById(`tile-${i}`);
-        tile.addEventListener('click', () => {
-            console.log(`Selected token with id ${i}`);
-            token.classList.toggle('select-token');
-        })
+}
+
+function isNotFourCenterTiles(index) {
+    if (index !== 44 && index !== 45 && index !== 54 && index !== 55) {
+        return true;
     }
 }
 
-let redTokens = 20;
-let greenTokens = 20;
-let blueTokens = 20;
-let orangeTokens = 20;
-let yellowTokens = 20;
 
+//Only 96 tokens will be placed on board. Only 20 of each token color.
 function getRandomTokenColor() {
     let randomNumber = Math.floor(Math.random() * 5) + 1;
     let randomColor;
@@ -133,11 +142,23 @@ function getRandomTokenColor() {
 
 }
 
-function isNotFourCenterTiles(index)
-{
-    if (index !== 44 && index !== 45 && index !== 54 && index !== 55)
-    {
-        return true;
+function updateSelectedTokenOnTokenClick() {
+    for (let i = 0; i < 96; i++) {
+        let token = document.getElementById(`token-${i}`);
+        token.addEventListener('click', () => {
+            console.log(`Selected token with id ${i}`);
+            selectedToken = token;
+        });
+    }
+}
+
+function highlightSelectedBoardTileOnClick() {
+    for (let i = 0; i < 100; i++) {
+        let tile = document.getElementById(`tile-${i}`);
+        tile.addEventListener('click', () => {
+            console.log(`Selected tile with id ${i}`);
+            tile.classList.toggle('select-tile');
+        });
     }
 }
 

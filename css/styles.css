@@ -1,19 +1,19 @@
 body {
-    background-color: #74b9ff
+    background-color: #74b9ff;
 }
 
 #board-container {
-    background-color: white
+    background-color: white;
 }
 
-.select-token {
+.select-tile {
     -webkit-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
     -moz-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
-    box-shadow: 0px 0px 26px -1px rgba(115, 190, 240, 1);
+    box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
 }
 
 .red {
-    background-color: red
+    background-color: red;
 }
 
 .blue
@@ -55,12 +55,12 @@ body {
     position: absolute;
     width: 100%;
     bottom: 0;
-    padding: 3px
+    padding: 3px;
 }
 
 .messages {
     padding: 5px;
-    margin: 0px;
+    margin: 0;
     font-size: 12px;
 }
 
@@ -69,5 +69,4 @@ body {
 }
 
 #scoreboard-component {
-    background-color: ;
 }
