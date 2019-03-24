@@ -1,13 +1,12 @@
 const boardContainer = document.getElementById('board-container');
 const tableBody = document.getElementById('table-body');
 const currentPlayerDisplay = document.getElementById('current-player');
-let selectedToken;
+let selectedToken = null;
 let redTokens = 20;
 let greenTokens = 20;
 let blueTokens = 20;
 let orangeTokens = 20;
 let yellowTokens = 20;
-let initialSelectedTile;
 
 const tokenColors = [{
     color: 'red',
@@ -37,13 +36,13 @@ const players =
         PLAYER_TWO: 'Player Two',
         PLAYER_THREE: 'Player Three',
         PLAYER_FOUR: 'Player Four'
-    }
+    };
 
 function main() {
     createBoard();
     placeTokensOnBoard();
     updateSelectedTokenOnTokenClick();
-    highlightSelectedBoardTileOnClick();
+    registerTileClicks();
     setCurrentPlayerDisplay(players.PLAYER_ONE);
 }
 
@@ -158,16 +157,28 @@ function updateSelectedTokenOnTokenClick() {
         let token = document.getElementById(`token-${i}`);
         token.addEventListener('click', () => {
             console.log(`Selected token with id ${i}`);
-            selectedToken = token;
+
+            if (noTokensAreSelected()) {
+                token.classList.toggle('select-token');
+                selectedToken = token;
+            } else if (token === selectedToken) {
+                //Deselecting the token.
+                token.classList.toggle('select-token');
+                selectedToken = null;
+            } else {
+                selectedToken.classList.toggle('select-token');
+                token.classList.toggle('select-token');
+                selectedToken = token;
+            }
         });
     }
 }
 
-function highlightSelectedBoardTileOnClick() {
+function registerTileClicks() {
 
-    /*Only one tile can be selected. First the tile where the token
+    /*Only one token can be selected. First the token where the token
     * is coming from is selected and then the player chooses where
-    * the token should move to and the initial tile will no longer
+    * the token should move to and the initial token will no longer
     * be selected.*/
 
     for (let i = 0; i < 100; i++) {
@@ -175,30 +186,26 @@ function highlightSelectedBoardTileOnClick() {
         tile.addEventListener('click', () => {
             console.log(`Selected tile with id ${i}`);
 
-            if (noTilesAreSelected() && tileHasToken(tile)) {
-                tile.classList.toggle('select-tile');
-                initialSelectedTile = tile;
+            if (!noTokensAreSelected() && !tileHasToken(tile)) {
+                //We can make a move to this tile.
             } else {
-                initialSelectedTile.classList.toggle('select-tile');
-                initialSelectedTile = null;
+                //We can't move to this tile.
             }
 
         });
     }
 }
 
-function noTilesAreSelected() {
-    return initialSelectedTile == null;
+function noTokensAreSelected() {
+    return selectedToken == null;
 }
 
-function tileHasToken(tile)
-{
+function tileHasToken(tile) {
     return tile.hasChildNodes();
 }
 
-function setCurrentPlayerDisplay(player)
-{
-    currentPlayerDisplay.innerHTML = ("<strong>" + player + "'s Turn" +"</strong>");
+function setCurrentPlayerDisplay(player) {
+    currentPlayerDisplay.innerHTML = ("<strong>" + player + "'s Turn" + "</strong>");
 }
 
 main();
