@@ -11,11 +11,15 @@ const tokenColors = [{
     },
     {
         color: 'green',
-        hexValue: '#00b894'
+        hexValue: '#00b808'
     },
     {
         color: 'yellow',
         hexValue: '#f9ca24'
+    },
+    {
+        color: 'orange',
+        hexValue: '#f99a00'
     }
 ];
 
