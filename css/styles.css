@@ -6,6 +6,14 @@ body {
     background-color: white;
 }
 
+#current-player
+{
+    padding-top: 5px;
+    padding-left: 540px;
+    padding-bottom: 12px;
+    font-size: 24px;
+}
+
 .select-tile {
     -webkit-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
     -moz-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);

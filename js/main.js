@@ -1,5 +1,6 @@
 const boardContainer = document.getElementById('board-container');
 const tableBody = document.getElementById('table-body');
+const currentPlayerDisplay = document.getElementById('current-player');
 let selectedToken;
 let redTokens = 20;
 let greenTokens = 20;
@@ -30,11 +31,20 @@ const tokenColors = [{
     }
 ];
 
+const players =
+    {
+        PLAYER_ONE: 'Player One',
+        PLAYER_TWO: 'Player Two',
+        PLAYER_THREE: 'Player Three',
+        PLAYER_FOUR: 'Player Four'
+    }
+
 function main() {
     createBoard();
     placeTokensOnBoard();
     updateSelectedTokenOnTokenClick();
     highlightSelectedBoardTileOnClick();
+    setCurrentPlayerDisplay(players.PLAYER_ONE);
 }
 
 function createBoard() {
@@ -184,6 +194,11 @@ function noTilesAreSelected() {
 function tileHasToken(tile)
 {
     return tile.hasChildNodes();
+}
+
+function setCurrentPlayerDisplay(player)
+{
+    currentPlayerDisplay.innerHTML = ("<strong>" + player + "'s Turn" +"</strong>");
 }
 
 main();
