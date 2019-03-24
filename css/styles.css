@@ -14,10 +14,11 @@ body {
     font-size: 24px;
 }
 
+
 .select-token {
-    -webkit-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
-    -moz-box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
-    box-shadow: inset 0px 0px 26px -1px rgba(115, 190, 240, 1);
+    -webkit-box-shadow: inset 0px 0px 26px -1px rgb(0, 0, 0);
+    -moz-box-shadow: inset 0px 0px 26px -1px rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 26px -1px rgb(0, 0, 0);
 }
 
 .red {
