@@ -81,4 +81,3 @@ const token = new Token();
 board.createBoard()
 //add token actions
 token.addTokenSelection()
-token.addTokenSelection()
