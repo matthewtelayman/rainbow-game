@@ -185,6 +185,7 @@ function registerTileClicks() {
         let tile = document.getElementById(`tile-${i}`);
         tile.addEventListener('click', () => {
             console.log(`Selected tile with id ${i}`);
+            //TODO Game rules will need to be implemented to know if we can really make a certain move.
 
             if (!noTokensAreSelected() && !tileHasToken(tile)) {
                 //We can make a move to this tile.
