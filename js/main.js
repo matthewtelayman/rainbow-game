@@ -6,6 +6,7 @@ let greenTokens = 20;
 let blueTokens = 20;
 let orangeTokens = 20;
 let yellowTokens = 20;
+let initialSelectedTile;
 
 const tokenColors = [{
     color: 'red',
@@ -153,13 +154,36 @@ function updateSelectedTokenOnTokenClick() {
 }
 
 function highlightSelectedBoardTileOnClick() {
+
+    /*Only one tile can be selected. First the tile where the token
+    * is coming from is selected and then the player chooses where
+    * the token should move to and the initial tile will no longer
+    * be selected.*/
+
     for (let i = 0; i < 100; i++) {
         let tile = document.getElementById(`tile-${i}`);
         tile.addEventListener('click', () => {
             console.log(`Selected tile with id ${i}`);
-            tile.classList.toggle('select-tile');
+
+            if (noTilesAreSelected() && tileHasToken(tile)) {
+                tile.classList.toggle('select-tile');
+                initialSelectedTile = tile;
+            } else {
+                initialSelectedTile.classList.toggle('select-tile');
+                initialSelectedTile = null;
+            }
+
         });
     }
+}
+
+function noTilesAreSelected() {
+    return initialSelectedTile == null;
+}
+
+function tileHasToken(tile)
+{
+    return tile.hasChildNodes();
 }
 
 main();
