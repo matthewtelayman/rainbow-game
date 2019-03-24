@@ -49,13 +49,16 @@ function main() {
     let tile;
     counter = 0;
     for (let i = 0; i < 100; i++) {
-        tile = document.getElementById(`tile-${i}`);
-        token = document.createElement('div');
-        //randomize utility here
-        token.id = `token-${counter}`;
-        token.className = getRandomTokenColor();
-        tile.append(token);
-        counter++;
+
+        if (isNotFourCenterTiles(i)){
+            tile = document.getElementById(`tile-${i}`);
+            token = document.createElement('div');
+            //randomize utility here
+            token.id = `token-${counter}`;
+            token.className = getRandomTokenColor();
+            tile.append(token);
+            counter++;
+        }
     }
 
     //Add highlight action to board tiles
@@ -128,6 +131,14 @@ function getRandomTokenColor() {
 
     return randomColor;
 
+}
+
+function isNotFourCenterTiles(index)
+{
+    if (index !== 44 && index !== 45 && index !== 54 && index !== 55)
+    {
+        return true;
+    }
 }
 
 main();
