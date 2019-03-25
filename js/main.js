@@ -1,20 +1,21 @@
+import {
+    chooseRandom,
+    checkMoveIsWithinRange
+} from './utils.js'
+
 //Elements
 const tokenColors = ['red', 'green', 'yellow', 'blue', 'orange'];
 let counter = 0;
 let globalSelectCheck = false
 
-//Utilities
-const chooseRandom = (arr) => {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
+//Global vars //TODO: remove them
+let globalSelectCheck = false
 
 //Create board
 class Board {
-
     tokenColors = []
     numOfCols = 0
     numOfRows = 0
-    counter = 0
     tableBody = document.getElementById('table-body')
 
     constructor(tokenColors, numOfRows, numOfCols) {
@@ -22,8 +23,8 @@ class Board {
         this.numOfRows = numOfRows
         this.numOfCols = numOfCols
     }
-
     createBoard() {
+        let counter = 0
         for (let i = 0; i < this.numOfRows; i++) {
             let tr = document.createElement('tr');
             for (let j = 0; j < this.numOfCols; j++) {
@@ -36,6 +37,7 @@ class Board {
         }
         const boardSize = this.numOfCols * this.numOfRows
         this.placeTokens(this.tokenColors, boardSize)
+        this.activateBoard()
     }
     placeTokens(tokenColors, boardSize) {
         for (let i = 0; i < boardSize; i++) {
@@ -49,35 +51,53 @@ class Board {
             }
         }
     }
-}
-
-class Token extends Board {
-    constructor() {
-        super()
-    }
-    addTokenSelection() {
+    activateBoard() {
+        let selectedToken
         for (let i = 0; i < 100; i++) {
-            let token = document.getElementById(`tile-${i}`);
-            token.addEventListener('click', () => {
-                if (token.classList != 'select-token' && globalSelectCheck == false) {
+            let tile = document.getElementById(`tile-${i}`);
+            tile.addEventListener('click', () => {
+
+                //valid token selections
+                const userSelectsToken = tile.classList != 'select-token' && globalSelectCheck == false
+                const userUnselectsToken = tile.classList == 'select-token' && globalSelectCheck == true
+                const userWantsToMoveToken = tile.classList != 'select-token' && globalSelectCheck == true
+
+                if (userSelectsToken) {
                     console.log(`Selected token with id ${i}`)
-                    token.classList = 'select-token'
+                    tile.classList = 'select-token'
+                    selectedToken = i
                     globalSelectCheck = true;
-                } else if (token.classList == 'select-token' && globalSelectCheck == true) {
-                    token.classList = ''
+
+                } else if (userUnselectsToken) {
+                    tile.classList = ''
                     globalSelectCheck = false;
+
+                } else if (userWantsToMoveToken) {
+                    if (checkMoveIsWithinRange(i, selectedToken)) {
+                        if (validMove) {
+
+                        }
+                    } else {
+                        alert('Please choose a tile within range')
+                    }
+                    //check within range
+                    //valid move
+                    //eating piece
+                    //solid move
+                    //invalid move
+                    //there is a piece already there that cannot be eaten
+                    // const isOccupied = tile.firstChild
+                    // if (isOccupied) {
+                    //     console.log('cannot move')
+                    // } else {
+                    //     console.log('valid move')
+                    // }
                 }
             })
         }
     }
-    addTokenValidation() {
-        //check if you can make a move.
-    }
 }
 
+const tokenColors = ['red', 'green', 'yellow', 'blue', 'orange'];
 const board = new Board(tokenColors, 10, 10)
-const token = new Token();
-//an init sequence must take place.
 board.createBoard()
-//add token actions
-token.addTokenSelection()
