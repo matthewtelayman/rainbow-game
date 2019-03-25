@@ -29,7 +29,7 @@ class Token {
         }
     }
 
-    removeToken(color)
+    removeTokenFromPool(color)
     {
         switch (color)
         {

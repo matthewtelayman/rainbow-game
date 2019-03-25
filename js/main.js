@@ -6,6 +6,7 @@ let counter = 0;
 
 //Global vars //TODO: remove them
 let globalSelectCheck = false;
+let token = new Token;
 
 //Create board
 class Board {
@@ -41,7 +42,7 @@ class Board {
                 let tile = document.getElementById(`tile-${i}`);
                 let token = document.createElement('div');
                 token.id = `token-${i}`;
-                const randomColor = chooseRandom(tokenColors);
+                const randomColor = this.getRandomColor();
                 token.className = `${randomColor} token`;
                 tile.append(token);
             }
@@ -51,11 +52,18 @@ class Board {
     static isNotMiddleFourTiles(index) {
         return index !== 44 && index !== 45 && index !== 54 && index !== 55;
     }
-    
-    getRandomColor()
-    {
+
+    getRandomColor() {
+        const randomColor = chooseRandom(Token.getTokenColors());
+
+        if (token.colorHasMoreThanZeroTokens(randomColor)) {
+            token.removeTokenFromPool(randomColor);
+            return randomColor;
+        } else {
+            return this.getRandomColor();
+        }
     }
-    
+
 
     activateBoard() {
         let selectedToken;
