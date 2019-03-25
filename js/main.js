@@ -3,6 +3,11 @@ import {
     checkMoveIsWithinRange
 } from './utils.js'
 
+//Elements
+const tokenColors = ['red', 'green', 'yellow', 'blue', 'orange'];
+let counter = 0;
+let globalSelectCheck = false
+
 //Global vars //TODO: remove them
 let globalSelectCheck = false
 
