@@ -1,17 +1,10 @@
+import {
+    chooseRandom,
+    checkMoveIsWithinRange
+} from './utils.js'
+
 //Global vars //TODO: remove them
 let globalSelectCheck = false
-
-//Utilities
-const chooseRandom = (arr) => {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
-const checkMoveIsWithinRange = (tileToMove, selectedToken) => {
-    return (selectedToken + 1 == tileToMove) || (selectedToken - 1 == tileToMove) ||
-        (selectedToken + 10 == tileToMove) || (selectedToken - 10 == tileToMove) ||
-        (selectedToken + 11 == tileToMove) || (selectedToken - 11 == tileToMove) ||
-        (selectedToken + 9 == tileToMove) || (selectedToken - 9 == tileToMove)
-}
 
 //Create board
 class Board {
@@ -76,9 +69,11 @@ class Board {
 
                 } else if (userWantsToMoveToken) {
                     if (checkMoveIsWithinRange(i, selectedToken)) {
-                        console.log('is within range')
+                        if (validMove) {
+
+                        }
                     } else {
-                        console.log('is not within range')
+                        alert('Please choose a tile within range')
                     }
                     //check within range
                     //valid move
