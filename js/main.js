@@ -2,6 +2,7 @@ import {
     chooseRandom,
     checkMoveIsWithinRange
 } from './utils.js'
+import anime from './anime.es.js';
 
 //Global vars //TODO: remove them
 let globalSelectCheck = false
@@ -70,7 +71,7 @@ class Board {
                 } else if (userWantsToMoveToken) {
                     if (checkMoveIsWithinRange(i, selectedToken)) {
                         if (validMove) {
-
+                            moveToken(i, selectedToken)
                         }
                     } else {
                         alert('Please choose a tile within range')
@@ -91,6 +92,13 @@ class Board {
             })
         }
     }
+}
+
+
+export const validMove = (tileToMove, selectedToken) => {}
+
+const moveToken = (tileToMove, selectedToken) => {
+
 }
 
 const tokenColors = ['red', 'green', 'yellow', 'blue', 'orange'];
