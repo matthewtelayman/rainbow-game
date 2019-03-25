@@ -1,5 +1,5 @@
 //Elements
-const tokenColors = ['red', 'green', 'yellow', 'blue'];
+const tokenColors = ['red', 'green', 'yellow', 'blue', 'orange'];
 let counter = 0;
 let globalSelectCheck = false
 
