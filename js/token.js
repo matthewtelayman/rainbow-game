@@ -8,6 +8,8 @@ class Token {
     orangeTokens = 20;
     yellowTokens = 20;
 
+    currentlySelectedToken;
+
     static getTokenColors() {
         return tokenColors;
     }
@@ -49,6 +51,16 @@ class Token {
                 this.orangeTokens--;
                 break;
         }
+    }
+
+    setCurrentlySelectedToken(token)
+    {
+        this.currentlySelectedToken = token;
+    }
+
+    getCurrentlySelectedToken()
+    {
+        return this.currentlySelectedToken;
     }
 
 }
