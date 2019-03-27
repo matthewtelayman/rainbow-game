@@ -4,6 +4,9 @@ import {
 } from './utils.js'
 import anime from './anime.es.js';
 import Token from './token.js';
+import {
+    showUsernameModal
+} from './chat.js'
 
 //Global vars //TODO: remove them
 let globalSelectCheck = false;
@@ -114,9 +117,50 @@ class Board {
 
 export const validMove = (tileToMove, selectedToken) => {};
 
-const moveToken = (tileToMove, selectedToken) => {
+const moveToken = (placeToMove, selectedToken) => {
+    const element = document.querySelector(`#token-${selectedToken}`)
+    const tile = document.getElementById(`tile-${selectedToken}`)
+    console.log('TOKEN ', element);
+    console.log('TILE ', tile);
+    tile.classList = ''
+    let config = {
+        targets: element
+    }
+    //Move down
+    if (placeToMove === selectedToken + 10) {
+        console.log(placeToMove)
+        config.translateY = 63
+        //Move up
+    } else if (placeToMove === selectedToken - 10) {
+        console.log(placeToMove)
+        config.translateY = -63
+        //Move right
+    } else if (placeToMove === selectedToken + 1) {
+        console.log(placeToMove)
+        config.translateX = 63
+        //Move left
+    } else if (placeToMove === selectedToken - 1) {
+        console.log(placeToMove)
+        config.translateX = -63
+        //Move diagonal down right
+    } else if (placeToMove === selectedToken + 11) {
 
-};
+        //Move diagonal down left
+    } else if (placeToMove === selectedToken - 11) {
+
+        //Move diagonal up right
+    } else if (placeToMove === selectedToken + 9) {
+
+        //Move diagonal up left
+    } else if (placeToMove === selectedToken - 9) {
+
+    }
+    globalSelectCheck = false;
+    anime(config);
+}
+
+
 
 const board = new Board(10, 10);
 board.createBoard();
+showUsernameModal()

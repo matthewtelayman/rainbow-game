@@ -35,6 +35,9 @@
                         <input type="text" class="form-control" placeholder="Enter your message">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button" id="button-addon2">Send</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                Launch demo modal
+                            </button>
                         </div>
                     </div>
 
@@ -43,11 +46,39 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1>Welcome to the <span style="color:orange">ra</span><span style="color:blue">i</span><span
+                            style="color:green">nb</span><span style="color:yellow">o</span><span
+                            style="color:blue">w</span> game</h1>
+                    <p>Enter a username to being playing</p>
+                    <form action="" style="padding-top:20px;">
+                        <div class="input-group">
+                            <form action="">
+                                <input type="text" class="form-control" placeholder="Enter username"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2"
+                                    id="username-input">
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="button" id="username-submit">Enter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
-    <script src="anime.min.js"></script>
-    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/anime.es.js"></script>
     <script type="module" src="./js/token.js"></script>
+    <script type="module" src="./js/chat.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>
