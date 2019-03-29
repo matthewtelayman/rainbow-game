@@ -32,7 +32,7 @@ let typing = false;
 let lastTypingTime;
 let currentInput = usernameInput.focus();
 
-//var socket = io();
+var socket = io();
 
 submitUsernameButton.addEventListener('click', () => {
     const username = usernameInput.value.trim();
@@ -56,13 +56,13 @@ const addParticipantsMessage = (data) => {
 
 // Sets the client's username
 const setUsername = (username) => {
-
+    ``
     console.log('got username ', username)
     // If the username is valid
     // if (username) {
     //     myModal.modal('hide')
     // $loginPage.off('click');
-    //currentInput = inputMessage.focus();
+    currentInput = inputMessage.focus();
 
     // Tell the server your username
     //socket.emit('add user', username);

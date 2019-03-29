@@ -4,10 +4,6 @@ import {
 } from './utils.js'
 import anime from './anime.es.js';
 import Token from './token.js';
-import {
-    showUsernameModal
-} from './chat.js'
-
 //Global vars //TODO: remove them
 let globalSelectCheck = false;
 let token = new Token;
@@ -129,19 +125,19 @@ const moveToken = (placeToMove, selectedToken) => {
     //Move down
     if (placeToMove === selectedToken + 10) {
         console.log(placeToMove)
-        config.translateY = 63
+        config.translateY = 65
         //Move up
     } else if (placeToMove === selectedToken - 10) {
         console.log(placeToMove)
-        config.translateY = -63
+        config.translateY = -65
         //Move right
     } else if (placeToMove === selectedToken + 1) {
         console.log(placeToMove)
-        config.translateX = 63
+        config.translateX = 65
         //Move left
     } else if (placeToMove === selectedToken - 1) {
         console.log(placeToMove)
-        config.translateX = -63
+        config.translateX = -65
         //Move diagonal down right
     } else if (placeToMove === selectedToken + 11) {
 
@@ -163,4 +159,3 @@ const moveToken = (placeToMove, selectedToken) => {
 
 const board = new Board(10, 10);
 board.createBoard();
-showUsernameModal()
