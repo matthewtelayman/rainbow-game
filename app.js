@@ -25,7 +25,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('add user', username => {
-    console.log('Adding user...')
+    console.log(`Adding user ${username} to chat room`)
     if (addedUser) return;
 
     socket.username = username;
