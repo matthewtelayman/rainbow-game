@@ -1,12 +1,14 @@
 import {
     chooseRandom,
     checkMoveIsWithinRange
-} from './utils.js'
+} from './utils.js';
 import anime from './anime.es.js';
 import Token from './token.js';
+
 //Global vars //TODO: remove them
 let globalSelectCheck = false;
-let token = new Token;
+let selectedTile;
+let tokens = [];
 
 //Create board
 class Board {
@@ -56,8 +58,8 @@ class Board {
     getRandomColor() {
         const randomColor = chooseRandom(Token.getTokenColors());
 
-        if (token.colorHasMoreThanZeroTokens(randomColor)) {
-            token.removeTokenFromPool(randomColor);
+        if (Token.colorHasMoreThanZeroTokens(randomColor)) {
+            Token.removeTokenFromPool(randomColor);
             return randomColor;
         } else {
             return this.getRandomColor();
@@ -65,33 +67,65 @@ class Board {
     }
 
     activateBoard() {
-        let selectedToken;
+        this.setTileSelectionListener();
+        this.setTokenSelectionListener();
+    }
+
+    setTileSelectionListener() {
         for (let i = 0; i < 100; i++) {
             let tile = document.getElementById(`tile-${i}`);
             tile.addEventListener('click', () => {
 
-                //valid token selections
-                const userSelectsToken = tile.classList != 'select-token' && globalSelectCheck == false
-                const userUnselectsToken = tile.classList == 'select-token' && globalSelectCheck == true
-                const userWantsToMoveToken = tile.classList != 'select-token' && globalSelectCheck == true
+                let userWantsToMoveToken;
+                if (Token.getCurrentlySelectedToken() !== undefined) {
+                    userWantsToMoveToken = Token.getCurrentlySelectedToken().getTokenId() !== i && globalSelectCheck === true;
+                } else {
+                    userWantsToMoveToken = false;
+                }
+                selectedTile = i;
+                console.log(selectedTile);
 
-                if (userSelectsToken) {
-                    console.log(`Selected token with id ${i}`);
-                    tile.classList = 'select-token';
-                    selectedToken = i;
-                    globalSelectCheck = true;
-
-                } else if (userUnselectsToken) {
-                    tile.classList = '';
-                    globalSelectCheck = false;
-
-                } else if (userWantsToMoveToken) {
-                    if (checkMoveIsWithinRange(i, selectedToken)) {
+                if (userWantsToMoveToken) {
+                    console.log("Move token");
+                    if (checkMoveIsWithinRange(selectedTile, Token.getCurrentlySelectedToken().getCurrentTile())) {
                         if (validMove) {
-                            moveToken(i, selectedToken)
+                            document.getElementById(Token.getCurrentlySelectedToken().getTokenElementId()).classList.toggle('select-token');
+                            moveToken(selectedTile, Token.getCurrentlySelectedToken());
+                            Token.getCurrentlySelectedToken().setCurrentTile(selectedTile);
                         }
                     } else {
                         alert('Please choose a tile within range');
+                    }
+                }
+            });
+        }
+    }
+
+    setTokenSelectionListener() {
+        for (let i = 0; i < 100; i++) {
+
+            if (Board.isNotMiddleFourTiles(i)) {
+                let currentToken = document.getElementById(`token-${i}`);
+
+                let token = new Token(i, `token-${i}`, i);
+                tokens.push(token);
+
+                currentToken.addEventListener('click', () => {
+                    //valid token selections
+
+
+                    const userSelectsToken = Token.getCurrentlySelectedToken() !== currentToken && globalSelectCheck === false;
+                    const userUnselectsToken = Token.getCurrentlySelectedToken() === token && globalSelectCheck === true;
+                    if (userSelectsToken) {
+                        console.log(`Selected token with id ${i}`);
+                        currentToken.classList.toggle('select-token');
+                        Token.setCurrentlySelectedToken(token);
+                        globalSelectCheck = true;
+                    } else if (userUnselectsToken) {
+                        console.log("Unselects token");
+                        currentToken.classList.toggle('select-token');
+                        Token.setCurrentlySelectedToken(undefined);
+                        globalSelectCheck = false;
                     }
                     //check within range
                     //valid move
@@ -105,57 +139,64 @@ class Board {
                     // } else {
                     //     console.log('valid move')
                     // }
-                }
-            });
+
+                });
+            }
+
         }
+
     }
 }
 
-export const validMove = (tileToMove, selectedToken) => {};
+
+export const validMove = (tileToMove, selectedToken) => {
+};
 
 const moveToken = (placeToMove, selectedToken) => {
-    const element = document.querySelector(`#token-${selectedToken}`)
-    const tile = document.getElementById(`tile-${selectedToken}`)
+
+    let tokenId = selectedToken.getTokenId();
+    let currentTokenPosition = selectedToken.getCurrentTile();
+
+    const element = document.getElementById(`token-${tokenId}`);
+    const tile = document.getElementById(`tile-${placeToMove}`);
     console.log('TOKEN ', element);
     console.log('TILE ', tile);
-    tile.classList = ''
+    tile.classList = '';
     let config = {
         targets: element
-    }
+    };
     //Move down
-    if (placeToMove === selectedToken + 10) {
-        console.log(placeToMove)
-        config.translateY = 65
+    if (placeToMove === currentTokenPosition + 10) {
+        console.log(placeToMove);
+        config.translateY = 65;
         //Move up
-    } else if (placeToMove === selectedToken - 10) {
-        console.log(placeToMove)
-        config.translateY = -65
+    } else if (placeToMove === currentTokenPosition - 10) {
+        console.log(placeToMove);
+        config.translateY = -65;
         //Move right
-    } else if (placeToMove === selectedToken + 1) {
-        console.log(placeToMove)
-        config.translateX = 65
+    } else if (placeToMove === currentTokenPosition + 1) {
+        console.log(placeToMove);
+        config.translateX = 65;
         //Move left
-    } else if (placeToMove === selectedToken - 1) {
-        console.log(placeToMove)
-        config.translateX = -65
+    } else if (placeToMove === currentTokenPosition - 1) {
+        console.log(placeToMove);
+        config.translateX = -65;
         //Move diagonal down right
-    } else if (placeToMove === selectedToken + 11) {
+    } else if (placeToMove === currentTokenPosition + 11) {
 
         //Move diagonal down left
-    } else if (placeToMove === selectedToken - 11) {
+    } else if (placeToMove === currentTokenPosition - 11) {
 
         //Move diagonal up right
-    } else if (placeToMove === selectedToken + 9) {
+    } else if (placeToMove === currentTokenPosition + 9) {
 
         //Move diagonal up left
-    } else if (placeToMove === selectedToken - 9) {
+    } else if (placeToMove === currentTokenPosition - 9) {
 
     }
     globalSelectCheck = false;
     anime(config);
-}
-
-
+};
 
 const board = new Board(10, 10);
 board.createBoard();

@@ -12,7 +12,8 @@ li {
 }
 
 .select-token {
-    box-shadow: inset 0px 0px 4px blue
+    outline: 5px dotted black;
+    outline-offset: 8px;
 }
 
 .red {

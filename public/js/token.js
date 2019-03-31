@@ -1,55 +1,103 @@
 const tokenColors = ['red', 'green', 'yellow', 'blue', 'orange'];
 
+let blueTokens = 20;
+let greenTokens = 20;
+let redTokens = 20;
+let orangeTokens = 20;
+let yellowTokens = 20;
+
+let currentlySelectedToken;
+let currentTokenId;
+
+
 class Token {
 
-    blueTokens = 20;
-    greenTokens = 20;
-    redTokens = 20;
-    orangeTokens = 20;
-    yellowTokens = 20;
+    tokenId;
+    currentTile;
+    tokenElementId;
+
+
+    constructor(tokenId, tokenElementId, tile) {
+
+        this.setCurrentTile(tile);
+        this.setTokenElementId(tokenElementId);
+        this.setTokenId(tokenId);
+    }
+
+    setCurrentTile(tile) {
+        this.currentTile = tile;
+    }
+
+    getCurrentTile() {
+        return this.currentTile;
+    }
+
+    setTokenId(tokenId) {
+        this.tokenId = tokenId;
+    }
+
+    getTokenId() {
+        return this.tokenId;
+    }
+
+    setTokenElementId(tokenElementId)
+    {
+        this.tokenElementId = tokenElementId;
+    }
+
+    getTokenElementId()
+    {
+        return this.tokenElementId;
+    }
+
 
     static getTokenColors() {
         return tokenColors;
     }
 
-    colorHasMoreThanZeroTokens(color)
-    {
-        switch (color)
-        {
+    static colorHasMoreThanZeroTokens(color) {
+        switch (color) {
             case tokenColors[0]:
-                return this.redTokens > 0;
+                return redTokens > 0;
             case tokenColors[1]:
-                return this.greenTokens > 0;
+                return greenTokens > 0;
             case tokenColors[2]:
-                return this.yellowTokens > 0;
+                return yellowTokens > 0;
             case tokenColors[3]:
-                return this.blueTokens > 0;
+                return blueTokens > 0;
             case tokenColors[4]:
-                return this.orangeTokens > 0;
+                return orangeTokens > 0;
         }
     }
 
-    removeTokenFromPool(color)
-    {
-        switch (color)
-        {
+    static removeTokenFromPool(color) {
+        switch (color) {
             case tokenColors[0]:
-                this.redTokens--;
+                redTokens--;
                 break;
             case tokenColors[1]:
-                this.greenTokens--;
+                greenTokens--;
                 break;
             case tokenColors[2]:
-                this.yellowTokens--;
+                yellowTokens--;
                 break;
             case tokenColors[3]:
-                this.blueTokens--;
+                blueTokens--;
                 break;
             case tokenColors[4]:
-                this.orangeTokens--;
+                orangeTokens--;
                 break;
         }
     }
+
+    static setCurrentlySelectedToken(token) {
+        currentlySelectedToken = token;
+    }
+
+    static getCurrentlySelectedToken() {
+        return currentlySelectedToken;
+    }
+
 
 }
 
