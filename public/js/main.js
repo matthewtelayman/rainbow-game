@@ -79,14 +79,18 @@ class Board {
 
                 let userWantsToMoveToken;
                 let currentToken;
-                if (Token.getCurrentlySelectedToken() !== undefined)
-                {
-                    currentToken = tokens.find(function(element)
-                    {
-                       return element.getTokenId() === Token.getCurrentlySelectedToken().getTokenId();
+                if (Token.getCurrentlySelectedToken() !== undefined) {
+                    currentToken = tokens.find(function (element) {
+                        return element.getTokenId() === Token.getCurrentlySelectedToken().getTokenId();
                     });
                 }
+
+                if (currentToken !== undefined) {
                     userWantsToMoveToken = currentToken.getTokenId() !== i && globalSelectCheck === true;
+                } else {
+                    userWantsToMoveToken = false;
+                }
+
 
                 selectedTile = i;
                 console.log(selectedTile);
@@ -143,8 +147,7 @@ export const validMove = (tileToMove, selectedToken) => {
 
 const moveToken = (placeToMove, selectedToken) => {
 
-    let currentToken = tokens.find(function(element)
-    {
+    let currentToken = tokens.find(function (element) {
         return element.getTokenId() === selectedToken.getTokenId();
     });
 
@@ -179,7 +182,7 @@ const moveToken = (placeToMove, selectedToken) => {
     } else if (placeToMove === currentTokenPosition - 1) {
         console.log(placeToMove);
         config.translateX = currentToken.getCurrentTransformXAmount() - 65;
-        currentToken.setCurrentTransformXAmount(config.translateX)
+        currentToken.setCurrentTransformXAmount(config.translateX);
         //Move diagonal down right
     } else if (placeToMove === currentTokenPosition + 11) {
 
