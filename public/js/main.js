@@ -86,7 +86,12 @@ class Board {
                 }
 
                 if (currentToken !== undefined) {
-                    userWantsToMoveToken = currentToken.getTokenId() !== i && globalSelectCheck === true;
+                    /*Tokens sit on top of their original tiles so tokenId matches the tile they sit on. If a different tile
+                    * is clicked, that tile will be different than the token Id UNLESS it is the tokens original tile. In that case,
+                    * we know the user is moving because the currentTokens currentTile is different than the home tile and also
+                    * the currentToken's ID is the same as the selected tile, meaning the tile and token have the same IDs, but the token
+                    * is sitting in a different location*/
+                    userWantsToMoveToken = (currentToken.getTokenId() !== selectedTile && globalSelectCheck === true) || (currentToken.getCurrentTile() !== selectedTile && currentToken.getTokenId() === selectedTile);
                 } else {
                     userWantsToMoveToken = false;
                 }
@@ -109,6 +114,8 @@ class Board {
             });
         }
     }
+
+
 
     setTokenSelectionListener() {
         for (let i = 0; i < 100; i++) {
