@@ -16,6 +16,8 @@ class Token {
     currentTile;
     tokenElementId;
 
+    currentTransformYAmount = 0;
+    currentTransformXAmount = 0;
 
     constructor(tokenId, tokenElementId, tile) {
 
@@ -23,6 +25,28 @@ class Token {
         this.setTokenElementId(tokenElementId);
         this.setTokenId(tokenId);
     }
+
+    setCurrentTransformYAmount(amount)
+    {
+        this.currentTransformYAmount = amount;
+    }
+
+    getCurrentTransformYAmount()
+    {
+        return this.currentTransformYAmount;
+    }
+
+    setCurrentTransformXAmount(amount)
+    {
+        this.currentTransformXAmount = amount;
+    }
+
+    getCurrentTransformXAmount()
+    {
+        return this.currentTransformXAmount;
+    }
+
+
 
     setCurrentTile(tile) {
         this.currentTile = tile;

@@ -162,20 +162,24 @@ const moveToken = (placeToMove, selectedToken) => {
     //Move down
     if (placeToMove === currentTokenPosition + 10) {
         console.log(placeToMove);
-        config.translateY = 65;
+        config.translateY = currentToken.getCurrentTransformYAmount() + 65;
+        currentToken.setCurrentTransformYAmount(config.translateY);
 
         //Move up
     } else if (placeToMove === currentTokenPosition - 10) {
         console.log(placeToMove);
-        config.translateY = -65;
+        config.translateY = currentToken.getCurrentTransformYAmount() - 65;
+        currentToken.setCurrentTransformYAmount(config.translateY);
         //Move right
     } else if (placeToMove === currentTokenPosition + 1) {
         console.log(placeToMove);
-        config.translateX = 65;
+        config.translateX = currentToken.getCurrentTransformXAmount() + 65;
+        currentToken.setCurrentTransformXAmount(config.translateX);
         //Move left
     } else if (placeToMove === currentTokenPosition - 1) {
         console.log(placeToMove);
-        config.translateX = -65;
+        config.translateX = currentToken.getCurrentTransformXAmount() - 65;
+        currentToken.setCurrentTransformXAmount(config.translateX)
         //Move diagonal down right
     } else if (placeToMove === currentTokenPosition + 11) {
 
