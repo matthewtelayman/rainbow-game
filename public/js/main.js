@@ -96,7 +96,7 @@ class Board {
                        * we know the user is moving because the currentTokens currentTile is different than the home tile and also
                        * the currentToken's ID is the same as the selected tile, meaning the tile and token have the same IDs, but the token
                        * is sitting in a different location*/
-                       userWantsToMoveToken = (currentToken.getTokenId() !== selectedTile && globalSelectCheck === true) || (currentToken.getCurrentTile() !== currentToken.getTokenId() && currentToken.getTokenId() === selectedTile && currentToken.getTokenId() === selectedTile && globalSelectCheck === true);
+                       userWantsToMoveToken = (currentToken.getTokenId() !== selectedTile && globalSelectCheck === true) || (currentToken.getCurrentTile() !== currentToken.getTokenId() && currentToken.getTokenId() === selectedTile && globalSelectCheck === true);
                    } else {
                        userWantsToMoveToken = false;
                    }
