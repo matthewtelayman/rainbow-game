@@ -47,7 +47,7 @@ class Board {
                 token.id = `token-${i}`;
                 const randomColor = this.getRandomColor();
                 token.className = `${randomColor} token`;
-                tile.append(token);
+                tile.appendChild(token);
             }
         }
     }
@@ -75,43 +75,52 @@ class Board {
     setTileSelectionListener() {
         for (let i = 0; i < 100; i++) {
             let tile = document.getElementById(`tile-${i}`);
-            tile.addEventListener('click', () => {
 
-                let userWantsToMoveToken;
-                let currentToken;
-                if (Token.getCurrentlySelectedToken() !== undefined) {
-                    currentToken = tokens.find(function (element) {
-                        return element.getTokenId() === Token.getCurrentlySelectedToken().getTokenId();
-                    });
-                }
+            tile.onclick = function(event)
+            {
+               if (event.target === this)
+               {
+                   let userWantsToMoveToken;
+                   let currentToken;
+                   selectedTile = i;
 
-                if (currentToken !== undefined) {
-                    /*Tokens sit on top of their original tiles so tokenId matches the tile they sit on. If a different tile
-                    * is clicked, that tile will be different than the token Id UNLESS it is the tokens original tile. In that case,
-                    * we know the user is moving because the currentTokens currentTile is different than the home tile and also
-                    * the currentToken's ID is the same as the selected tile, meaning the tile and token have the same IDs, but the token
-                    * is sitting in a different location*/
-                    userWantsToMoveToken = (currentToken.getTokenId() !== selectedTile && globalSelectCheck === true) || (currentToken.getCurrentTile() !== selectedTile && currentToken.getTokenId() === selectedTile);
-                } else {
-                    userWantsToMoveToken = false;
-                }
+                   if (Token.getCurrentlySelectedToken() !== undefined) {
+                       currentToken = tokens.find(function (element) {
+                           return element.getTokenId() === Token.getCurrentlySelectedToken().getTokenId();
+                       });
+                   }
+
+                   if (currentToken !== undefined) {
+                       /*Tokens sit on top of their original tiles so tokenId matches the tile they sit on. If a different tile
+                       * is clicked, that tile will be different than the token Id UNLESS it is the tokens original tile. In that case,
+                       * we know the user is moving because the currentTokens currentTile is different than the home tile and also
+                       * the currentToken's ID is the same as the selected tile, meaning the tile and token have the same IDs, but the token
+                       * is sitting in a different location*/
+                       userWantsToMoveToken = (currentToken.getTokenId() !== selectedTile && globalSelectCheck === true) || (currentToken.getCurrentTile() !== currentToken.getTokenId() && currentToken.getTokenId() === selectedTile && currentToken.getTokenId() === selectedTile && globalSelectCheck === true);
+                   } else {
+                       userWantsToMoveToken = false;
+                   }
 
 
-                selectedTile = i;
-                console.log(selectedTile);
-                if (userWantsToMoveToken) {
-                    console.log("Move token");
-                    if (checkMoveIsWithinRange(selectedTile, currentToken.getCurrentTile())) {
-                        if (validMove) {
-                            document.getElementById(currentToken.getTokenElementId()).classList.toggle('select-token');
-                            moveToken(selectedTile, currentToken);
-                            currentToken.setCurrentTile(selectedTile);
-                        }
-                    } else {
-                        alert('Please choose a tile within range');
-                    }
-                }
-            });
+                   console.log(selectedTile);
+                   if (userWantsToMoveToken) {
+                       console.log("Move token");
+                       if (checkMoveIsWithinRange(selectedTile, currentToken.getCurrentTile())) {
+                           if (validMove) {
+                               document.getElementById(currentToken.getTokenElementId()).classList.toggle('select-token');
+                               moveToken(selectedTile, currentToken);
+                               currentToken.setCurrentTile(selectedTile);
+                           }
+                       } else {
+                           alert('Please choose a tile within range');
+                       }
+                   }
+               }
+
+            };
+
+
+
         }
     }
 
