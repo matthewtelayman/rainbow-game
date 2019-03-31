@@ -86,8 +86,6 @@ class Board {
                        return element.getTokenId() === Token.getCurrentlySelectedToken().getTokenId();
                     });
                 }
-                    console.log("TILE: " + i);
-                    console.log("TOKEN POSITION: " + currentToken.getCurrentTile());
                     userWantsToMoveToken = currentToken.getTokenId() !== i && globalSelectCheck === true;
 
                 selectedTile = i;
