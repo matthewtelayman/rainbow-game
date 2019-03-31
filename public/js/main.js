@@ -88,7 +88,7 @@ class Board {
                 }
                     console.log("TILE: " + i);
                     console.log("TOKEN POSITION: " + currentToken.getCurrentTile());
-                    userWantsToMoveToken = currentToken.getCurrentTile() !== i && globalSelectCheck === true;
+                    userWantsToMoveToken = currentToken.getTokenId() !== i && globalSelectCheck === true;
 
                 selectedTile = i;
                 console.log(selectedTile);
@@ -145,14 +145,19 @@ export const validMove = (tileToMove, selectedToken) => {
 
 const moveToken = (placeToMove, selectedToken) => {
 
-    let tokenId = selectedToken.getTokenId();
-    let currentTokenPosition = selectedToken.getCurrentTile();
+    let currentToken = tokens.find(function(element)
+    {
+        return element.getTokenId() === selectedToken.getTokenId();
+    });
+
+    let tokenId = currentToken.getTokenId();
+    let currentTokenPosition = currentToken.getCurrentTile();
 
     const element = document.getElementById(`token-${tokenId}`);
     const tile = document.getElementById(`tile-${placeToMove}`);
     console.log('TOKEN ', element);
     console.log('TILE ', tile);
-    tile.classList = '';
+
     let config = {
         targets: element
     };
@@ -160,6 +165,7 @@ const moveToken = (placeToMove, selectedToken) => {
     if (placeToMove === currentTokenPosition + 10) {
         console.log(placeToMove);
         config.translateY = 65;
+
         //Move up
     } else if (placeToMove === currentTokenPosition - 10) {
         console.log(placeToMove);
@@ -188,6 +194,7 @@ const moveToken = (placeToMove, selectedToken) => {
     globalSelectCheck = false;
     anime(config);
 };
+
 
 const board = new Board(10, 10);
 board.createBoard();
