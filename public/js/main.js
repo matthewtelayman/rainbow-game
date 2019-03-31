@@ -9,6 +9,7 @@ import Token from './token.js';
 let globalSelectCheck = false;
 let selectedTile;
 let tokens = [];
+let selectingToken = false;
 
 //Create board
 class Board {
@@ -77,21 +78,27 @@ class Board {
             tile.addEventListener('click', () => {
 
                 let userWantsToMoveToken;
-                if (Token.getCurrentlySelectedToken() !== undefined) {
-                    userWantsToMoveToken = Token.getCurrentlySelectedToken().getTokenId() !== i && globalSelectCheck === true;
-                } else {
-                    userWantsToMoveToken = false;
+                let currentToken;
+                if (Token.getCurrentlySelectedToken() !== undefined)
+                {
+                    currentToken = tokens.find(function(element)
+                    {
+                       return element.getTokenId() === Token.getCurrentlySelectedToken().getTokenId();
+                    });
                 }
+                    console.log("TILE: " + i);
+                    console.log("TOKEN POSITION: " + currentToken.getCurrentTile());
+                    userWantsToMoveToken = currentToken.getCurrentTile() !== i && globalSelectCheck === true;
+
                 selectedTile = i;
                 console.log(selectedTile);
-
                 if (userWantsToMoveToken) {
                     console.log("Move token");
-                    if (checkMoveIsWithinRange(selectedTile, Token.getCurrentlySelectedToken().getCurrentTile())) {
+                    if (checkMoveIsWithinRange(selectedTile, currentToken.getCurrentTile())) {
                         if (validMove) {
-                            document.getElementById(Token.getCurrentlySelectedToken().getTokenElementId()).classList.toggle('select-token');
-                            moveToken(selectedTile, Token.getCurrentlySelectedToken());
-                            Token.getCurrentlySelectedToken().setCurrentTile(selectedTile);
+                            document.getElementById(currentToken.getTokenElementId()).classList.toggle('select-token');
+                            moveToken(selectedTile, currentToken);
+                            currentToken.setCurrentTile(selectedTile);
                         }
                     } else {
                         alert('Please choose a tile within range');
@@ -111,9 +118,6 @@ class Board {
                 tokens.push(token);
 
                 currentToken.addEventListener('click', () => {
-                    //valid token selections
-
-
                     const userSelectsToken = Token.getCurrentlySelectedToken() !== currentToken && globalSelectCheck === false;
                     const userUnselectsToken = Token.getCurrentlySelectedToken() === token && globalSelectCheck === true;
                     if (userSelectsToken) {
@@ -127,19 +131,6 @@ class Board {
                         Token.setCurrentlySelectedToken(undefined);
                         globalSelectCheck = false;
                     }
-                    //check within range
-                    //valid move
-                    //eating piece
-                    //solid move
-                    //invalid move
-                    //there is a piece already there that cannot be eaten
-                    // const isOccupied = tile.firstChild
-                    // if (isOccupied) {
-                    //     console.log('cannot move')
-                    // } else {
-                    //     console.log('valid move')
-                    // }
-
                 });
             }
 
