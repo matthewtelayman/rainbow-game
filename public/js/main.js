@@ -72,10 +72,6 @@ class Board {
         }
     }
 
-    getTileClassName() {
-
-    }
-
     static isNotMiddleFourTiles(index) {
         return index !== 44 && index !== 45 && index !== 54 && index !== 55;
     }
