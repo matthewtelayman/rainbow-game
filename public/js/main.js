@@ -10,6 +10,11 @@ let globalSelectCheck = false;
 let selectedTile;
 let tokens = [];
 let selectingToken = false;
+let yellowIndexes = [0, 5, 14, 19, 23, 28, 32, 37, 41, 46, 50, 55, 64, 69, 73, 78, 82, 87, 91, 96];
+let orangeIndexes = [1, 6, 10, 15, 24, 29, 33, 38, 42, 47, 51, 56, 60, 65, 74, 79, 83, 88, 92, 97];
+let blueIndexes = [2, 7, 11, 16, 20, 25, 34, 39, 43, 48, 52, 57, 61, 66, 70, 75, 84, 89, 93, 98];
+let greenIndexes = [3, 8, 12, 17, 21, 26, 30, 35, 44, 49, 53, 58, 62, 67, 71, 76, 80, 85, 94, 99];
+let redIndexes = [4, 9, 13, 18, 22, 27, 31, 36, 40, 45, 54, 59, 63, 68, 72, 77, 81, 86, 90, 95];
 
 //Create board
 class Board {
@@ -29,6 +34,21 @@ class Board {
             for (let j = 0; j < this.numOfCols; j++) {
                 let td = document.createElement('td');
                 td.id = `tile-${counter}`;
+                if (yellowIndexes.includes(counter)) {
+                    td.className = `yellow tile`;
+                }
+                else if (orangeIndexes.includes(counter)) {
+                    td.className = `orange tile`;
+                }
+                else if (blueIndexes.includes(counter)) {
+                    td.className = `blue tile`;
+                }
+                else if (greenIndexes.includes(counter)) {
+                    td.className = `green tile`;
+                }
+                else if (redIndexes.includes(counter)) {
+                    td.className = `red tile`;
+                }
                 tr.appendChild(td);
                 counter++;
             }
@@ -50,6 +70,10 @@ class Board {
                 tile.appendChild(token);
             }
         }
+    }
+
+    getTileClassName() {
+
     }
 
     static isNotMiddleFourTiles(index) {
@@ -123,8 +147,6 @@ class Board {
 
         }
     }
-
-
 
     setTokenSelectionListener() {
         for (let i = 0; i < 100; i++) {
